@@ -2,7 +2,9 @@
 #include "RenderCamera.h"
 #include "Collider.h"
 
-const int MOVEMENT_SPEED = 10;
+const int MOVEMENT_SPEED = 3;
+const int GRAVITY_SCALE = 9;
+const int JUMP_VELOCITY = 20;
 
 class Character {
 public:
@@ -15,9 +17,13 @@ public:
 
 	void SetGraphHandle(int handle);
 	void Update();
+	void Translate(int x, int y);
+	void ApplyGravity();
 	void Render(Camera* main_camera);
 	int GetX();
+	void SetX(int x);
 	int GetY();
+	void SetY(int y);
 	int GetHandle();
 
 private:

@@ -43,9 +43,6 @@
     <ClCompile Include="program\support\vec3.cpp">
       <Filter>program\support</Filter>
     </ClCompile>
-    <ClCompile Include="program\game\MainScene.cpp">
-      <Filter>program\game</Filter>
-    </ClCompile>
     <ClCompile Include="program\game\Collider.cpp">
       <Filter>program\game</Filter>
     </ClCompile>
@@ -56,6 +53,9 @@
       <Filter>program\game</Filter>
     </ClCompile>
     <ClCompile Include="program\game\RenderCamera.cpp">
+      <Filter>program\game</Filter>
+    </ClCompile>
+    <ClCompile Include="program\game\Scenes.cpp">
       <Filter>program\game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -87,9 +87,6 @@
     <ClInclude Include="program\support\bitmap.h">
       <Filter>program\support</Filter>
     </ClInclude>
-    <ClInclude Include="program\game\MainScene.h">
-      <Filter>program\game</Filter>
-    </ClInclude>
     <ClInclude Include="program\game\Collider.h">
       <Filter>program\game</Filter>
     </ClInclude>
@@ -100,6 +97,9 @@
       <Filter>program\game</Filter>
     </ClInclude>
     <ClInclude Include="program\game\RenderCamera.h">
+      <Filter>program\game</Filter>
+    </ClInclude>
+    <ClInclude Include="program\game\Scenes.h">
       <Filter>program\game</Filter>
     </ClInclude>
   </ItemGroup>

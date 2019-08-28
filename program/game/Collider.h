@@ -1,4 +1,5 @@
 #pragma once
+#include "Character.h"
 
 class Collider {
 public:
@@ -8,10 +9,13 @@ public:
 		position_y_ = y;
 		width_ = width;
 		height_ = height;
+		horizontal_ = width_ / 2;
+		vertical_ = height_ / 2;
 	}
 	~Collider() {}
 
 	void Update(int x, int y);
+	// void UpdateWithCharacter(Character* cptr);
 	bool CheckCollision(Collider* target);
 	int GetHorizontal();
 	int GetVertical();
@@ -23,6 +27,6 @@ private:
 	int position_y_;
 	int width_;
 	int height_;
-	int horizontal_ = width_ / 2;
-	int vertical_ = height_ / 2;
+	int horizontal_;
+	int vertical_;
 };

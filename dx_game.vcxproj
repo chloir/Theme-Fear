@@ -15,8 +15,8 @@
     <ClCompile Include="program\game\Collider.cpp" />
     <ClCompile Include="program\game\game_main.cpp" />
     <ClCompile Include="program\game\game_setup.cpp" />
-    <ClCompile Include="program\game\MainScene.cpp" />
     <ClCompile Include="program\game\RenderCamera.cpp" />
+    <ClCompile Include="program\game\Scenes.cpp" />
     <ClCompile Include="program\game\Vector2.cpp" />
     <ClCompile Include="program\support\DebugTrace.cpp" />
     <ClCompile Include="program\support\fmfmap.cpp" />
@@ -30,8 +30,8 @@
     <ClInclude Include="program\game\Collider.h" />
     <ClInclude Include="program\game\game_main.h" />
     <ClInclude Include="program\game\game_setup.h" />
-    <ClInclude Include="program\game\MainScene.h" />
     <ClInclude Include="program\game\RenderCamera.h" />
+    <ClInclude Include="program\game\Scenes.h" />
     <ClInclude Include="program\game\Vector2.h" />
     <ClInclude Include="program\support\bitmap.h" />
     <ClInclude Include="program\support\DebugTrace.h" />

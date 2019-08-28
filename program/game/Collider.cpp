@@ -1,3 +1,4 @@
+#include <cmath>
 #include "DxLib.h"
 #include "../support/Support.h"
 #include "Collider.h"
@@ -7,18 +8,26 @@ void Collider::Update(int x, int y) {
 	position_y_ = y;
 }
 
+//void Collider::UpdateWithCharacter(Character* cptr)
+//{
+//	position_x_ = cptr->GetX();
+//	position_y_ = cptr->GetY();
+//}
+
 bool Collider::CheckCollision(Collider* target) {
 	int target_x = target->GetX();
 	int target_width = target->GetHorizontal();
 
-	bool horizontal_check = position_x_ - target_x < horizontal_ + target_width;
+	bool horizontal_check = std::abs(position_x_ - target_x) < horizontal_ + target_width;
 
 	int target_y = target->GetY();
 	int target_height = target->GetVertical();
 
-	bool vertical_check = position_y_ - target_y < vertical_ + target_height;
+	bool vertical_check = std::abs(position_y_ - target_y) < vertical_ + target_height;
 
-	return horizontal_check && vertical_check;
+	bool hit = horizontal_check && vertical_check;
+
+	return hit;
 }
 
 int Collider::GetHorizontal() {

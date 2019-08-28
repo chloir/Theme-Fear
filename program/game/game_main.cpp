@@ -1,10 +1,9 @@
 #include "DxLib.h"
 #include "game_main.h"
 #include "../support/Support.h"
-#include "MainScene.h"
-#include <time.h>
-#include <math.h>
-#include <string>
+#include "Scenes.h"
+
+bool init = false;
 
 //=============================================================================
 // name... game_main
@@ -14,9 +13,14 @@
 //=============================================================================
 int game_main()
 {
-	SetBackgroundColor(250, 250, 250);
+	if(!init)
+	{
+		SetBackgroundColor(250, 250, 250);
+		ChangeScene(MAIN_SCENE);
+		init = true;
+	}
 
-	MainScene();
+	LoadCurrentScene();
 
 	return 0 ;
 
