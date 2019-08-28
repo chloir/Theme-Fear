@@ -27,6 +27,19 @@ bool Collider::CheckCollision(Collider* target) {
 
 	bool hit = horizontal_check && vertical_check;
 
+	if (hit)
+	{
+		//position_x_ += ((horizontal_ + target_width) - std::abs(position_x_ - target_x));
+		if(position_y_ - target_y < 0)
+		{
+			position_y_ -= ((vertical_ + target_height) - std::abs(position_y_ - target_y));
+		}
+		if(position_y_ - target_y > 0)
+		{
+			position_y_ += ((vertical_ + target_height) - std::abs(position_y_ - target_y));
+		}
+	}
+
 	return hit;
 }
 

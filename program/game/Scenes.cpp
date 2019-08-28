@@ -7,10 +7,12 @@
 
 #pragma region MainScene
 
-Character* player = new Character(0, 200);
+Character* player = new Character(0, 0);
 Character* enemySample = new Character(0, 500);
 Collider* player_collider = nullptr;
 Collider* enemy_collider = nullptr;
+Collider* floor_collider = nullptr;
+Collider* floor_collider2 = nullptr;
 Camera* main_camera = nullptr;
 
 int background_graph_handle;
@@ -28,13 +30,13 @@ void MainScene() {
 		GetGraphSize(enemySample->GetHandle(), &e_width, &e_height);
 		enemy_collider = new Collider(enemySample->GetX(), enemySample->GetY(), e_width, e_height);
 		main_camera = new Camera(player->GetX(), player->GetY());
+		floor_collider = new Collider(0, 300, 2000, 10);
+		floor_collider2 = new Collider(100, 100, 300, 20);
 		main_scene_init = true;
 	}
 
 	Update();
 	Render();
-
-	DrawStringEx(10, 10, 1, "Hit:%d", player_collider->CheckCollision(enemy_collider));
 }
 
 // 位置の更新、当たり判定などのアップデート
@@ -42,10 +44,9 @@ void Update()
 {
 	player->Update();
 	player_collider->Update(player->GetX(), player->GetY());
- if (player->GetY() > 200)
- {
-	 player->SetY(200);
- }
+	player_collider->CheckCollision(floor_collider);
+	player->SetX(player_collider->GetX());
+	player->SetY(player_collider->GetY());
 	//enemySample->Translate(0, -1);
 	//enemy_collider->Update(enemySample->GetX(), enemySample->GetY());
 }
