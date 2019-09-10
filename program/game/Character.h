@@ -4,7 +4,7 @@
 
 const int MOVEMENT_SPEED = 3;
 const int GRAVITY_SCALE = 9;
-const int JUMP_VELOCITY = 20;
+const int JUMP_VELOCITY = 30;
 
 class Character {
 public:
@@ -19,14 +19,18 @@ public:
 	void Update();
 	void Translate(int x, int y);
 	void ApplyGravity();
-	void Render(Camera* main_camera);
+	void Render(Camera* main_camera, int e_rate);
 	int GetX();
 	void SetX(int x);
 	int GetY();
 	void SetY(int y);
 	int GetHandle();
+	void SetState(bool state);
 
 private:
+	bool is_jumping = false;
+	int target_temp = 0;
+	float velocity_temp = 0;
 	int position_x_;
 	int position_y_;
 	int graph_handle_;

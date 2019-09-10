@@ -10,7 +10,7 @@ public:
 	}
 	~Camera();
 
-	void Render(int graph_handle, int target_x, int target_y, int direction_flag);
+	void Render(int graph_handle, int target_x, int target_y, int direction_flag = 0, int extend_rate = 1);
 	void LerpPosition(int target_x, int target_y);
 
 private:
