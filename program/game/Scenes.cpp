@@ -11,11 +11,14 @@ Character* player = new Character(0, 0);
 Character* enemySample = new Character(-300, 280);
 Collider* player_collider = nullptr;
 Collider* enemy_collider = nullptr;
+Collider* floor_colliders[] = { nullptr, nullptr };
 Collider* floor_collider = nullptr;
+Collider* mini_floor_collider = nullptr;
 Camera* main_camera = nullptr;
 
 int background_graph_handle = 0;
 int background_floor_handle = 0;
+int floor_mini_graph_handle = 0;
 int mask_graph_handle = 0;
 float mask_size = 1;
 
@@ -25,6 +28,7 @@ void MainScene() {
 	if (!main_scene_init) {
 		background_graph_handle = LoadGraph("graphics/bg_green.png");
 		background_floor_handle = LoadGraph("graphics/bg_floor.png");
+		floor_mini_graph_handle = LoadGraph("graphics/floor_mini.png");
 		mask_graph_handle = LoadGraph("graphics/Mask.png");
 		player->SetGraphHandle(LoadGraph("graphics/s_chr.png"));
 		enemySample->SetGraphHandle(LoadGraph("graphics/frog.png"));
@@ -39,7 +43,11 @@ void MainScene() {
 		// floor‰Šú‰»
 		int f_width, f_height;
 		GetGraphSize(background_floor_handle, &f_width, &f_height);
-		floor_collider = new Collider(0, 400, f_width, f_height, FLOOR);
+		floor_colliders[0] = new Collider(0, 400, f_width, f_height, FLOOR);
+		// mini floors‰Šú‰»
+		int m_f_width, m_f_height;
+		GetGraphSize(floor_mini_graph_handle, &m_f_width, &m_f_height);
+		floor_colliders[1] = new Collider(100, 300, m_f_width, m_f_height, FLOOR);
 		
 		main_camera = new Camera(player->GetX(), player->GetY());
 		main_scene_init = true;
@@ -56,10 +64,14 @@ void Update()
 	// playerXVŒn
 	player->Update();
 	player_collider->Update(player->GetX(), player->GetY());
-	player_collider->CheckCollision(floor_collider);
-	if (player_collider->CheckType(floor_collider, FLOOR))
+	// °”»’è
+	for (Collider* c : floor_colliders)
 	{
-		player->SetState(false);
+		player_collider->CheckCollision(c);
+		if (player_collider->CheckType(c, FLOOR))
+		{
+			player->SetState(false);
+		}
 	}
 	player->SetX(player_collider->GetX());
 	player->SetY(player_collider->GetY());
@@ -73,7 +85,8 @@ void Render()
 {
 	main_camera->LerpPosition(player->GetX(), player->GetY());
 	main_camera->Render(background_graph_handle, 0, 0, 0, 1);
-	main_camera->Render(background_floor_handle, floor_collider->GetX(), floor_collider->GetY(), 0, 1);
+	main_camera->Render(background_floor_handle, floor_colliders[0]->GetX(), floor_colliders[0]->GetY(), 0, 1);
+	main_camera->Render(floor_mini_graph_handle, floor_colliders[1]->GetX(), floor_colliders[1]->GetY(), 0, 1);
 	//main_camera->Render(mask_graph_handle, player->GetX(), player->GetY(), 0, 1);
 	enemySample->Render(main_camera, 2);
 	player->Render(main_camera, 1);

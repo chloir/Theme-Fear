@@ -35,14 +35,6 @@ void Character::Update() {
 
 	ApplyGravity();
 	
-	//if(CheckHitKey(KEY_INPUT_UP) || CheckHitKey(KEY_INPUT_W))
-	//{
-	//	position_y_ -= MOVEMENT_SPEED;
-	//}
-	//if(CheckHitKey(KEY_INPUT_DOWN) || CheckHitKey(KEY_INPUT_S))
-	//{
-	//	position_y_ += MOVEMENT_SPEED;
-	//}
 }
 
 void Character::ApplyGravity()
