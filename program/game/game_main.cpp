@@ -15,7 +15,6 @@ int game_main()
 {
 	if(!init)
 	{
-		SetBackgroundColor(250, 250, 250);
 		ChangeScene(MAIN_SCENE);
 		init = true;
 	}

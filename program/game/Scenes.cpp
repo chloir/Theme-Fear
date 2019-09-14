@@ -7,28 +7,29 @@
 
 #pragma region MainScene
 
+int background_graph_handle = 0;
+int background_floor_handle = 0;
+int slim_floor_graph_handle = 0;
+int mask_graph_handle = 0;
+double mask_size = 1;
+const int SLIM_FLOOR_COUNT = 3;
+
+bool main_scene_init = false;
+
 Character* player = new Character(0, 0);
 Character* enemySample = new Character(-300, 280);
 Collider* player_collider = nullptr;
 Collider* enemy_collider = nullptr;
-Collider* floor_colliders[] = { nullptr, nullptr };
+Collider* floor_colliders[SLIM_FLOOR_COUNT];
 Collider* floor_collider = nullptr;
 Collider* mini_floor_collider = nullptr;
 Camera* main_camera = nullptr;
 
-int background_graph_handle = 0;
-int background_floor_handle = 0;
-int floor_mini_graph_handle = 0;
-int mask_graph_handle = 0;
-float mask_size = 1;
-
-bool main_scene_init = false;
 
 void MainScene() {
 	if (!main_scene_init) {
-		background_graph_handle = LoadGraph("graphics/bg_green.png");
 		background_floor_handle = LoadGraph("graphics/bg_floor.png");
-		floor_mini_graph_handle = LoadGraph("graphics/floor_mini.png");
+		slim_floor_graph_handle = LoadGraph("graphics/floor_slim01.png");
 		mask_graph_handle = LoadGraph("graphics/Mask.png");
 		player->SetGraphHandle(LoadGraph("graphics/s_chr.png"));
 		enemySample->SetGraphHandle(LoadGraph("graphics/frog.png"));
@@ -44,10 +45,11 @@ void MainScene() {
 		int f_width, f_height;
 		GetGraphSize(background_floor_handle, &f_width, &f_height);
 		floor_colliders[0] = new Collider(0, 400, f_width, f_height, FLOOR);
-		// mini floors初期化
+		// slim floors初期化
 		int m_f_width, m_f_height;
-		GetGraphSize(floor_mini_graph_handle, &m_f_width, &m_f_height);
-		floor_colliders[1] = new Collider(100, 300, m_f_width, m_f_height, FLOOR);
+		GetGraphSize(slim_floor_graph_handle, &m_f_width, &m_f_height);
+		floor_colliders[1] = new Collider(100, 220, m_f_width, m_f_height, FLOOR);
+		floor_colliders[2] = new Collider(600, 220, m_f_width, m_f_height, FLOOR);
 		
 		main_camera = new Camera(player->GetX(), player->GetY());
 		main_scene_init = true;
@@ -67,8 +69,7 @@ void Update()
 	// 床判定
 	for (Collider* c : floor_colliders)
 	{
-		player_collider->CheckCollision(c);
-		if (player_collider->CheckType(c, FLOOR))
+		if (player_collider->CheckType(c, FLOOR) && player_collider->CheckCollision(c))
 		{
 			player->SetState(false);
 		}
@@ -84,11 +85,19 @@ void Update()
 void Render()
 {
 	main_camera->LerpPosition(player->GetX(), player->GetY());
-	main_camera->Render(background_graph_handle, 0, 0, 0, 1);
-	main_camera->Render(background_floor_handle, floor_colliders[0]->GetX(), floor_colliders[0]->GetY(), 0, 1);
-	main_camera->Render(floor_mini_graph_handle, floor_colliders[1]->GetX(), floor_colliders[1]->GetY(), 0, 1);
-	//main_camera->Render(mask_graph_handle, player->GetX(), player->GetY(), 0, 1);
+	for (int i = 0; i < sizeof(floor_colliders) / sizeof(floor_colliders[0]); i++)
+	{
+		if(i == 0)
+		{
+			main_camera->Render(background_floor_handle, floor_colliders[i]->GetX(), floor_colliders[i]->GetY(), 0, 1);
+		}else
+		{
+			main_camera->Render(slim_floor_graph_handle, floor_colliders[i]->GetX(), floor_colliders[i]->GetY(), 0, 1);
+		}
+	}
 	enemySample->Render(main_camera, 2);
+	// マスク以降にはプレイヤー以外のレンダリングをしない
+	main_camera->Render(mask_graph_handle, player->GetX(), player->GetY(), 0, mask_size);
 	player->Render(main_camera, 1);
 }
 

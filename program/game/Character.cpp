@@ -21,16 +21,11 @@ void Character::Update() {
 		is_jumping = true;
 		target_temp = position_y_ - 1;
 		velocity_temp = JUMP_VELOCITY;
-		position_y_ -= velocity_temp;
 	}
 	if (is_jumping)
 	{
 		velocity_temp -= velocity_temp * 0.1f;
-		position_y_ -= velocity_temp;
-		if (position_y_ >= target_temp)
-		{
-			is_jumping = false;
-		}
+ 		position_y_ -= velocity_temp;
 	}
 
 	ApplyGravity();

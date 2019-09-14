@@ -4,7 +4,7 @@
 
 const int MOVEMENT_SPEED = 3;
 const int GRAVITY_SCALE = 9;
-const int JUMP_VELOCITY = 20;
+const int JUMP_VELOCITY = 40;
 
 class Character {
 public:
