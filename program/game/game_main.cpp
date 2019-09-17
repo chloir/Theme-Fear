@@ -4,6 +4,7 @@
 #include "Scenes.h"
 
 bool init = false;
+Scenes scene;
 
 //=============================================================================
 // name... game_main
@@ -13,13 +14,21 @@ bool init = false;
 //=============================================================================
 int game_main()
 {
-	if(!init)
+	
+	scene = GetCurrentScene();
+	
+	switch(scene)
 	{
-		ChangeScene(MAIN_SCENE);
-		init = true;
+	case TITLE_SCENE:
+		TitleScene();
+		break;
+	case MAIN_SCENE:
+		MainScene();
+		break;
+	case END_SCENE:
+		EndScene();
+		break;
 	}
-
-	LoadCurrentScene();
 
 	return 0 ;
 

@@ -6,7 +6,8 @@ enum ColliderType
 	FLOOR,
 	ENEMY,
 	PLAYER,
-	ITEM
+	ITEM,
+	DOOR
 };
 
 class Collider {
