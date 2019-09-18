@@ -16,19 +16,20 @@ void Character::Update() {
 		position_x_ += MOVEMENT_SPEED;
 		direction_flag_ = 1;
 	}
-	if (CheckHitKey(KEY_INPUT_SPACE))
+	if (CheckHitKey(KEY_INPUT_SPACE) && !is_jumping)
 	{
-		position_y_ -= JUMP_VELOCITY;
+		is_jumping = true;
+		target_temp = position_y_ - 1;
+		velocity_temp = JUMP_VELOCITY;
 	}
+	if (is_jumping)
+	{
+		velocity_temp -= velocity_temp * 0.1f;
+ 		position_y_ -= velocity_temp;
+	}
+
 	ApplyGravity();
-	//if(CheckHitKey(KEY_INPUT_UP) || CheckHitKey(KEY_INPUT_W))
-	//{
-	//	position_y_ -= MOVEMENT_SPEED;
-	//}
-	//if(CheckHitKey(KEY_INPUT_DOWN) || CheckHitKey(KEY_INPUT_S))
-	//{
-	//	position_y_ += MOVEMENT_SPEED;
-	//}
+	
 }
 
 void Character::ApplyGravity()
@@ -43,8 +44,8 @@ void Character::Translate(int x = NULL, int y = NULL)
 }
 
 
-void Character::Render(Camera* main_camera) {
-	main_camera->Render(graph_handle_, position_x_, position_y_, direction_flag_);
+void Character::Render(Camera* main_camera, int e_rate) {
+	main_camera->Render(graph_handle_, position_x_, position_y_, direction_flag_, e_rate);
 }
 
 int Character::GetX() { return position_x_; }
@@ -52,3 +53,4 @@ void Character::SetX(int x) { position_x_ = x; }
 int Character::GetY() { return position_y_; }
 void Character::SetY(int y) { position_y_ = y; }
 int Character::GetHandle() { return graph_handle_; }
+void Character::SetState(bool state) { is_jumping = state; }

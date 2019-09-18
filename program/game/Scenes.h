@@ -6,11 +6,14 @@ enum Scenes
 	END_SCENE
 };
 
+void TitleScene();
+
 void MainScene();
 void Update();
 void Render();
+void OnSceneExit();
 
 void EndScene();
 
-void LoadCurrentScene();
+Scenes GetCurrentScene();
 void ChangeScene(Scenes scene);

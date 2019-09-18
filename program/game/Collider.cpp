@@ -43,6 +43,11 @@ bool Collider::CheckCollision(Collider* target) {
 	return hit;
 }
 
+bool Collider::CheckType(Collider* target, ColliderType type)
+{
+	return target->GetTag() == type;
+}
+
 int Collider::GetHorizontal() {
 	return horizontal_;
 }
@@ -57,4 +62,9 @@ int Collider::GetX() {
 
 int Collider::GetY() {
 	return position_y_;
+}
+
+ColliderType Collider::GetTag()
+{
+	return tag;
 }
